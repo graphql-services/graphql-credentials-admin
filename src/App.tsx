@@ -32,7 +32,6 @@ const layout = (props: AuthContentProps) => (
   />
 );
 
-console.log(process.env); // tslint:disable-line
 export const content = (
     <Auth
         oauthTokenURL={process.env.REACT_APP_TOKEN_URL || ''}
