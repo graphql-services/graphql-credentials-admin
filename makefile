@@ -18,7 +18,7 @@ tag:
 	docker tag $(GIT_TAG) $(LATEST_TAG)
 
 login:
-	@docker login -u "$(DOCKER_USER)" -p "$(DOCKER_PASSWORD)"
+	echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 push: login
 	# docker push $(GIT_TAG)
 	# docker push $(BUILD_TAG)
