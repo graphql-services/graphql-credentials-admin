@@ -8,9 +8,9 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "2.16.0",
-    "webpanel-antd": "0.0.12",
+    "webpanel-antd": "git+https://github.com/webpanel/antd.git#develop",
     "webpanel-auth": "0.0.13",
-    "webpanel-data": "0.0.18"
+    "webpanel-data": "git+https://github.com/webpanel/data.git#develop"
   },
   "scripts": {
     "start": "react-scripts-ts start",

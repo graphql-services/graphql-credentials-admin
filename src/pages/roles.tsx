@@ -5,20 +5,19 @@ import { ResourceCollection, ResourceCollectionLayer } from 'webpanel-data';
 
 import { api } from '../model/api';
 
-export const users = (
+export const roles = (
   <ResourceCollectionLayer
-    name="users"
+    name="roles"
     dataSource={api}
-    fields={['id', 'username', 'firstname', 'lastname']}
+    fields={['id', 'name']}
     render={(resource: ResourceCollection) => {
       return (
-        <Card title="Users">
+        <Card title="Roles">
           <ResourceTable
             resourceCollection={resource}
             columns={[
               { title: '#', key: 'id' },
-              { title: 'Name', key: 'name' },
-              { title: 'Username', key: 'username' }
+              { title: 'Name', key: 'name' }
             ]}
           />
         </Card>

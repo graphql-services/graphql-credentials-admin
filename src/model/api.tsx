@@ -1,15 +1,17 @@
 import {
   DataSource,
+  GraphQLConnector as Connector,
   ResourceCollectionResponse,
-  ResponseDataTransformer,
-  RestConnector as Connector
+  ResponseDataTransformer
 } from 'webpanel-data';
 
 class CustomTransformer extends ResponseDataTransformer {
   public async list(data: any): Promise<ResourceCollectionResponse> {
+    const firstKey = Object.keys(data)[0];
+    const wrapper = data[firstKey];
     return {
-      count: data.length,
-      items: data
+      count: wrapper.count,
+      items: wrapper.items
     };
   }
 }
@@ -18,8 +20,12 @@ const connector = new Connector({
   responseDataTransformer: new CustomTransformer()
 });
 
+if (!process.env.REACT_APP_API_URL) {
+  throw new Error('REACT_APP_API_URL is not specified');
+}
+
 export const api = new DataSource(
   'api',
   connector,
-  'http://jsonplaceholder.typicode.com/'
+  process.env.REACT_APP_API_URL
 );
