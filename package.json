@@ -13,10 +13,12 @@
     "webpanel-data": "git+https://github.com/webpanel/data.git#develop"
   },
   "scripts": {
+    "start:prod": "npm run configure && npm run start",
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "configure": "envsubst < env.template.js > env.js"
   },
   "devDependencies": {
     "@types/jest": "^23.3.0",
