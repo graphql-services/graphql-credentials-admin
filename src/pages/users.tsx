@@ -13,7 +13,7 @@ export const users = (
   <ResourceCollectionLayer
     name="users"
     dataSource={api}
-    fields={['id', 'username']}
+    fields={['id', 'username', 'roles { name }']}
     sorting={[{ columnKey: 'username', order: SortInfoOrder.ascend }]}
     render={(resource: ResourceCollection) => {
       return (
@@ -23,7 +23,13 @@ export const users = (
             columns={[
               { title: '#', key: 'id' },
               { title: 'Username', key: 'username', sorter: true },
-              { title: 'Username', key: 'username' }
+              {
+                title: 'Roles',
+                key: 'roles',
+                render: (value: any[]): React.ReactNode => {
+                  return value.map(x => x.name).join(', ');
+                }
+              }
             ]}
           />
         </Card>
