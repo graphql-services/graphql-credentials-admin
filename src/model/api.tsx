@@ -7,7 +7,7 @@ import {
 
 class CustomTransformer extends ResponseDataTransformer {
   public async list(data: any): Promise<ResourceCollectionResponse> {
-    // global.console.log('???', data);
+    // global.console.log('???!!', data);
     // const firstKey = Object.keys(data)[0];
     // const wrapper = data[firstKey];
     // return {
