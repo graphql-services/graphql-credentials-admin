@@ -3,6 +3,7 @@ import { Layout, LoginForm, RouteComponentProps } from 'webpanel-antd';
 import { Auth, AuthContentProps, AuthFormProps } from 'webpanel-auth';
 
 import { roles } from './pages/roles';
+import { userDetail } from './pages/user-detail';
 import { users } from './pages/users';
 
 const layout = (props: AuthContentProps) => (
@@ -19,6 +20,11 @@ const layout = (props: AuthContentProps) => (
         content={(route: RouteComponentProps<any>) => 'Hello world!'}
       />,
       <Layout.StructureItem key="/users/" name="Users" content={users} />,
+      <Layout.StructureItem
+        key="/users/:id"
+        name="Users"
+        content={(route: RouteComponentProps<any>) => userDetail(route.match.params.id)}
+      />,
       <Layout.StructureItem key="/roles/" name="Roles" content={roles} />
     ]}
     logout={props.logout}

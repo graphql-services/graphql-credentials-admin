@@ -22,7 +22,8 @@ export const users = (
             resourceCollection={resource}
             columns={[
               { title: '#', key: 'id' },
-              { title: 'Username', key: 'username', sorter: true }
+              { title: 'Username', key: 'username', sorter: true },
+              { title: 'Username', key: 'username' }
             ]}
           />
         </Card>
