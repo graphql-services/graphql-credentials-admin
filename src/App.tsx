@@ -10,7 +10,7 @@ const layout = (props: AuthContentProps) => (
     menu={[
       <Layout.MenuItem key="/" title="Dashboard" icon="exclamation-circle-o" />,
       <Layout.MenuItem key="/users/" title="Users" icon="user" />,
-      <Layout.MenuItem key="/roles/" title="Roles" />
+      <Layout.MenuItem key="/roles/" title="Roles" icon="key" />
     ]}
     structure={[
       <Layout.StructureItem

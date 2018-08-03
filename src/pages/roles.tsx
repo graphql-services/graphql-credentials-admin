@@ -1,7 +1,11 @@
 import { Card } from 'antd';
 import * as React from 'react';
 import { ResourceTable } from 'webpanel-antd';
-import { ResourceCollection, ResourceCollectionLayer } from 'webpanel-data';
+import {
+  ResourceCollection,
+  ResourceCollectionLayer,
+  SortInfoOrder
+} from 'webpanel-data';
 
 import { api } from '../model/api';
 
@@ -10,6 +14,7 @@ export const roles = (
     name="roles"
     dataSource={api}
     fields={['id', 'name']}
+    sorting={[{ columnKey: 'name', order: SortInfoOrder.ascend }]}
     render={(resource: ResourceCollection) => {
       return (
         <Card title="Roles">
@@ -17,7 +22,7 @@ export const roles = (
             resourceCollection={resource}
             columns={[
               { title: '#', key: 'id' },
-              { title: 'Name', key: 'name' }
+              { title: 'Name', key: 'name', sorter: true }
             ]}
           />
         </Card>
