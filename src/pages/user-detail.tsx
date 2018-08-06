@@ -4,7 +4,8 @@ import {
   Input,
   InputTextArea,
   ResourceForm,
-  ResourceSelect
+  ResourceSelect,
+  RouteComponentProps
 } from 'webpanel-antd';
 import {
   Resource,
@@ -15,12 +16,15 @@ import {
 
 import { api } from '../model/api';
 
-export const userDetail = (id: string) => (
+export const userDetail = (route: RouteComponentProps<any>, id?: string) => (
   <Card title="User">
     <ResourceLayer
       name="user"
-      id={parseInt(id, 10)}
+      id={id && parseInt(id, 10)}
       dataSource={api}
+      onCreate={(resourceId: string) => {
+        route.history.push(`${resourceId}`);
+      }}
       fields={['username', 'password', 'roles_id', 'permissions']}
       render={(detail: Resource) => {
         return (

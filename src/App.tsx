@@ -21,9 +21,16 @@ const layout = (props: AuthContentProps) => (
       />,
       <Layout.StructureItem key="/users/" name="Users" content={users} />,
       <Layout.StructureItem
+        key="/users/new"
+        name="Create user"
+        content={(route: RouteComponentProps<any>) => userDetail(route)}
+      />,
+      <Layout.StructureItem
         key="/users/:id"
-        name="Users"
-        content={(route: RouteComponentProps<any>) => userDetail(route.match.params.id)}
+        name="Edit user"
+        content={(route: RouteComponentProps<any>) =>
+          userDetail(route, route.match.params.id)
+        }
       />,
       <Layout.StructureItem key="/roles/" name="Roles" content={roles} />
     ]}

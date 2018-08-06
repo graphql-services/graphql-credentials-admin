@@ -2,6 +2,7 @@ import {
   DataSource,
   GraphQLConnector as Connector,
   ResourceCollectionResponse,
+  ResourceResponse,
   ResponseDataTransformer
 } from 'webpanel-data';
 
@@ -14,6 +15,10 @@ class CustomTransformer extends ResponseDataTransformer {
     //   count: wrapper.count,
     //   items: wrapper.items
     // };
+    return data;
+  }
+  public async create(data: any): Promise<ResourceResponse> {
+    global.console.log('create??', data);
     return data;
   }
 }
