@@ -1,6 +1,6 @@
-import { Card } from 'antd';
+import { Button, Card } from 'antd';
 import * as React from 'react';
-import { ResourceTable } from 'webpanel-antd';
+import { Link, ResourceTable } from 'webpanel-antd';
 import {
   ResourceCollection,
   ResourceCollectionLayer,
@@ -17,7 +17,14 @@ export const roles = (
     sorting={[{ columnKey: 'name', order: SortInfoOrder.ascend }]}
     render={(resource: ResourceCollection) => {
       return (
-        <Card title="Roles">
+        <Card
+          title="Roles"
+          extra={
+            <Link to="./new">
+              <Button>Add</Button>
+            </Link>
+          }
+        >
           <ResourceTable
             resourceCollection={resource}
             columns={[
