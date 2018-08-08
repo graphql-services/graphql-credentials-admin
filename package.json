@@ -8,9 +8,9 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "2.16.0",
-    "webpanel-antd": "git+https://github.com/webpanel/antd.git#develop",
+    "webpanel-antd": "0.0.16",
     "webpanel-auth": "0.0.13",
-    "webpanel-data": "git+https://github.com/webpanel/data.git#develop"
+    "webpanel-data": "0.0.20"
   },
   "scripts": {
     "start:prod": "npm run configure && npm run start",

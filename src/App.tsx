@@ -11,8 +11,8 @@ const layout = (props: AuthContentProps) => (
   <Layout logout={props.logout}>
     <Layout.Menu>
       <Layout.MenuItem key="/" title="Dashboard" icon="exclamation-circle-o" />
-      <Layout.MenuItem key="/users/" title="Users" icon="user" />
-      <Layout.MenuItem key="/roles/" title="Roles" icon="key" />
+      <Layout.MenuItem key="users" title="Users" icon="user" />
+      <Layout.MenuItem key="roles" title="Roles" icon="key" />
     </Layout.Menu>
     <Layout.Structure>
       <Layout.StructureItem
@@ -20,32 +20,35 @@ const layout = (props: AuthContentProps) => (
         name="Dashboard"
         content={(route: RouteComponentProps<any>) => 'Hello world!'}
       />
-      <Layout.StructureItem key="/users/" name="Users" content={users} />,
-      <Layout.StructureItem
-        key="/users/new"
-        name="Create user"
-        content={(route: RouteComponentProps<any>) => userDetail(route)}
-      />
-      <Layout.StructureItem
-        key="/users/:id"
-        name="Edit user"
-        content={(route: RouteComponentProps<any>) =>
-          userDetail(route, route.match.params.id)
-        }
-      />
-      <Layout.StructureItem key="/roles/" name="Roles" content={roles} />,
-      <Layout.StructureItem
-        key="/roles/new"
-        name="Create role"
-        content={(route: RouteComponentProps<any>) => roleDetail(route)}
-      />
-      <Layout.StructureItem
-        key="/roles/:id"
-        name="Edit role"
-        content={(route: RouteComponentProps<any>) =>
-          roleDetail(route, route.match.params.id)
-        }
-      />
+      <Layout.StructureItem key="users" name="Users" content={users}>
+        <Layout.StructureItem
+          key="new"
+          name="Create user"
+          content={(route: RouteComponentProps<any>) => userDetail(route)}
+        />
+        <Layout.StructureItem
+          key=":id"
+          name="Edit user"
+          content={(route: RouteComponentProps<any>) =>
+            userDetail(route, route.match.params.id)
+          }
+        />
+      </Layout.StructureItem>
+
+      <Layout.StructureItem key="roles" name="Roles" content={roles}>
+        <Layout.StructureItem
+          key="new"
+          name="Create role"
+          content={(route: RouteComponentProps<any>) => roleDetail(route)}
+        />
+        <Layout.StructureItem
+          key=":id"
+          name="Edit role"
+          content={(route: RouteComponentProps<any>) =>
+            roleDetail(route, route.match.params.id)
+          }
+        />
+      </Layout.StructureItem>
     </Layout.Structure>
   </Layout>
 );
