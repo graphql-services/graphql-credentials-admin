@@ -5,6 +5,7 @@ import {
   ResourceResponse,
   ResponseDataTransformer
 } from 'webpanel-data';
+import { ENV } from '../env';
 
 class CustomTransformer extends ResponseDataTransformer {
   public async list(data: any): Promise<ResourceCollectionResponse> {
@@ -27,12 +28,4 @@ const connector = new Connector({
   responseDataTransformer: new CustomTransformer()
 });
 
-if (!process.env.REACT_APP_API_URL) {
-  throw new Error('REACT_APP_API_URL is not specified');
-}
-
-export const api = new DataSource(
-  'api',
-  connector,
-  process.env.REACT_APP_API_URL
-);
+export const api = new DataSource('api', connector, ENV.REACT_APP_API_URL);

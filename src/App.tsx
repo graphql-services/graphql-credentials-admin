@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Layout, LoginForm, RouteComponentProps } from 'webpanel-antd';
 import { Auth, AuthContentProps, AuthFormProps } from 'webpanel-auth';
 
+import { ENV } from './env';
 import { roleDetail } from './pages/role-detail';
 import { roles } from './pages/roles';
 import { userDetail } from './pages/user-detail';
@@ -55,10 +56,10 @@ const layout = (props: AuthContentProps) => (
 
 export const content = (
   <Auth
-    oauthTokenURL={process.env.REACT_APP_TOKEN_URL || ''}
-    clientId={process.env.REACT_APP_CLIENT_ID}
-    clientSecret={process.env.REACT_APP_CLIENT_SECRET}
-    scope={process.env.REACT_APP_SCOPE}
+    oauthTokenURL={ENV.REACT_APP_TOKEN_URL || ''}
+    clientId={ENV.REACT_APP_CLIENT_ID}
+    clientSecret={ENV.REACT_APP_CLIENT_SECRET}
+    scope={ENV.REACT_APP_SCOPE}
     content={layout}
     form={(props: AuthFormProps) => {
       return <LoginForm authorizationInfo={props} />;

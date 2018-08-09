@@ -1,8 +1,7 @@
-FROM nginx:alpine
-COPY build /usr/share/nginx/html/
+FROM node:8.4.0 as builder
+COPY . /code
+RUN cd /code && npm install && npm run build
 
-WORKDIR /usr/share/nginx/html/
 
-RUN chmod +x run.sh
-
-CMD [ "/bin/sh" ,"./run.sh" ]
+FROM inloopx/cra-docker
+COPY --from=builder /code/build /app

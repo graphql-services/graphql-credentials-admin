@@ -10,7 +10,6 @@ lint:
 	docker run -it --rm -v "$(PWD)/Dockerfile:/Dockerfile:ro" redcoolbeans/dockerlint
 
 build:
-	npm run build
 	docker build -t $(GIT_TAG) .
 
 tag:
