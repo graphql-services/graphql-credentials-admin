@@ -1,8 +1,8 @@
-import { Card, Form } from 'antd';
+import { Card, Input as AInput } from 'antd';
 import * as React from 'react';
 import {
+  FormField,
   Input,
-  InputTextArea,
   ResourceForm,
   ResourceSelect,
   RouteComponentProps
@@ -14,6 +14,7 @@ import {
   ResourceLayer
 } from 'webpanel-data';
 
+import { FormContext } from '../../node_modules/webpanel-antd/lib/form/form/Form';
 import { api } from '../model/api';
 
 export const userDetail = (route: RouteComponentProps<any>, id?: string) => (
@@ -26,37 +27,57 @@ export const userDetail = (route: RouteComponentProps<any>, id?: string) => (
         route.history.push(`${resourceId}`);
       }}
       fields={['username', 'password', 'roles_id', 'permissions']}
-      render={(detail: Resource) => {
-        return (
-          <ResourceForm formResource={detail}>
-            <Form.Item label="Username">
-              <Input name="username" placeholder={'Username'} />
-            </Form.Item>
-            <Form.Item label="Password [sha-512]">
-              <Input name="password" placeholder="Password" />
-            </Form.Item>
-            <Form.Item label="Roles">
+      render={(detail: Resource) => (
+        <ResourceForm
+          formResource={detail}
+          render={(formContext: FormContext) => (
+            <>
+              <FormField
+                formContext={formContext}
+                label="Username"
+                name="username"
+                rules={[{ required: true }]}
+              >
+                <Input placeholder={'Username'} />
+              </FormField>
+              <FormField
+                formContext={formContext}
+                name="password"
+                label="Password [sha-512]"
+                rules={[{ required: true }]}
+              >
+                <Input placeholder="Password" />
+              </FormField>
               <ResourceCollectionLayer
                 name="roles"
                 dataSource={api}
                 fields={['id', 'name']}
                 render={(resource: ResourceCollection) => (
-                  <ResourceSelect
-                    labelKey={(v: any) => `${v.name}`}
-                    valueKey={(v: any) => v.id}
-                    resourceCollection={resource}
-                    mode="multiple"
+                  <FormField
+                    formContext={formContext}
+                    label="Roles"
                     name="roles_id"
-                  />
+                  >
+                    <ResourceSelect
+                      labelKey={(v: any) => `${v.name}`}
+                      valueKey={(v: any) => v.id}
+                      resourceCollection={resource}
+                      mode="multiple"
+                    />
+                  </FormField>
                 )}
               />
-            </Form.Item>
-            <Form.Item label="Permissions">
-              <InputTextArea name="permissions" placeholder="Permissions" />
-            </Form.Item>
-          </ResourceForm>
-        );
-      }}
+              <FormField
+                formContext={formContext}
+                label="Permissions"
+                name="permissions"
+              >
+                <AInput.TextArea placeholder="Permissions" />
+              </FormField>
+            </>
+          )}
+        />
+      )}
     />
   </Card>
 );

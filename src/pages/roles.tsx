@@ -14,7 +14,7 @@ export const roles = (
     name="roles"
     dataSource={api}
     fields={['id', 'name']}
-    sorting={[{ columnKey: 'name', order: SortInfoOrder.ascend }]}
+    initialSorting={[{ columnKey: 'name', order: SortInfoOrder.ascend }]}
     render={(resource: ResourceCollection) => {
       return (
         <Card

@@ -1,8 +1,8 @@
-import { Card, Form } from 'antd';
+import { Card, Input as AInput } from 'antd';
 import * as React from 'react';
 import {
+  FormField,
   Input,
-  InputTextArea,
   ResourceForm,
   RouteComponentProps
 } from 'webpanel-antd';
@@ -13,6 +13,7 @@ import {
   ResourceLayer
 } from 'webpanel-data';
 
+import { FormContext } from '../../node_modules/webpanel-antd/lib/form/form/Form';
 import { api } from '../model/api';
 
 export const roleDetail = (route: RouteComponentProps<any>, id?: string) => (
@@ -25,18 +26,25 @@ export const roleDetail = (route: RouteComponentProps<any>, id?: string) => (
         route.history.push(`${resourceId}`);
       }}
       fields={['name', 'permissions']}
-      render={(detail: Resource) => {
-        return (
-          <ResourceForm formResource={detail}>
-            <Form.Item label="Name">
-              <Input name="name" placeholder={'Name'} />
-            </Form.Item>
-            <Form.Item label="Permissions">
-              <InputTextArea name="permissions" placeholder="Permissions" />
-            </Form.Item>
-          </ResourceForm>
-        );
-      }}
+      render={(detail: Resource) => (
+        <ResourceForm
+          formResource={detail}
+          render={(formContext: FormContext) => (
+            <>
+              <FormField name="name" label="Name" formContext={formContext}>
+                <Input placeholder={'Name'} />
+              </FormField>
+              <FormField
+                label="Permissions"
+                name="permissions"
+                formContext={formContext}
+              >
+                <AInput.TextArea placeholder="Permissions" />
+              </FormField>
+            </>
+          )}
+        />
+      )}
     />
   </Card>
 );
