@@ -4,6 +4,7 @@ import {
   FormField,
   Input,
   ResourceForm,
+  ResourceFormButtons,
   ResourceSelect,
   RouteComponentProps
 } from 'webpanel-antd';
@@ -74,6 +75,7 @@ export const userDetail = (route: RouteComponentProps<any>, id?: string) => (
               >
                 <AInput.TextArea placeholder="Permissions" />
               </FormField>
+              <ResourceFormButtons formContext={formContext} />
             </>
           )}
         />
