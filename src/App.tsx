@@ -1,68 +1,62 @@
 import * as React from 'react';
-import { Layout, LoginForm, RouteComponentProps } from 'webpanel-antd';
-import { Auth, AuthContentProps, AuthFormProps } from 'webpanel-auth';
+import { Admin, Entity } from 'webpanel-admin';
 
+import { AuthSession } from 'webpanel-auth';
 import { ENV } from './env';
-import { roleDetail } from './pages/role-detail';
-import { roles } from './pages/roles';
-import { userDetail } from './pages/user-detail';
-import { users } from './pages/users';
+import { api } from './model/api';
 
-const layout = (props: AuthContentProps) => (
-  <Layout logout={props.logout}>
-    <Layout.Menu>
-      <Layout.MenuItem key="/" title="Dashboard" icon="exclamation-circle-o" />
-      <Layout.MenuItem key="users" title="Users" icon="user" />
-      <Layout.MenuItem key="roles" title="Roles" icon="key" />
-    </Layout.Menu>
-    <Layout.Structure>
-      <Layout.StructureItem
-        key="/"
-        name="Dashboard"
-        content={(route: RouteComponentProps<any>) => 'Hello world!'}
-      />
-      <Layout.StructureItem key="users" name="Users" content={users}>
-        <Layout.StructureItem
-          key="new"
-          name="Create user"
-          content={(route: RouteComponentProps<any>) => userDetail(route)}
-        />
-        <Layout.StructureItem
-          key=":id"
-          name="Edit user"
-          content={(route: RouteComponentProps<any>) =>
-            userDetail(route, route.match.params.id)
-          }
-        />
-      </Layout.StructureItem>
+const user: Entity<any> = new Admin.Entity<any>({
+  name: 'User',
+  dataSource: api
+})
+  .field('username')
+  .field({ name: 'password', visibility: { detail: true } })
+  .field({
+    name: 'roles_ids',
+    type: 'relationship',
+    targetEntity: () => role,
+    toMany: true,
+    visibility: { detail: true }
+  })
+  .field({
+    name: 'roles',
+    type: 'relationship',
+    targetEntity: () => role,
+    toMany: true,
+    visibility: { list: true }
+  })
+  .field({ name: 'permissions', type: 'text' });
 
-      <Layout.StructureItem key="roles" name="Roles" content={roles}>
-        <Layout.StructureItem
-          key="new"
-          name="Create role"
-          content={(route: RouteComponentProps<any>) => roleDetail(route)}
-        />
-        <Layout.StructureItem
-          key=":id"
-          name="Edit role"
-          content={(route: RouteComponentProps<any>) =>
-            roleDetail(route, route.match.params.id)
-          }
-        />
-      </Layout.StructureItem>
-    </Layout.Structure>
-  </Layout>
-);
+const role: Entity<any> = new Admin.Entity<any>({
+  name: 'Role',
+  dataSource: api
+})
+  .field('name')
+  .field({
+    name: 'users_ids',
+    type: 'relationship',
+    targetEntity: () => user,
+    toMany: true,
+    visibility: { detail: true }
+  })
+  .field({
+    name: 'permissions',
+    type: 'text'
+  });
 
-export const content = (
-  <Auth
-    oauthTokenURL={ENV.REACT_APP_TOKEN_URL || ''}
-    clientId={ENV.REACT_APP_CLIENT_ID}
-    clientSecret={ENV.REACT_APP_CLIENT_SECRET}
-    scope={ENV.REACT_APP_SCOPE}
-    content={layout}
-    form={(props: AuthFormProps) => {
-      return <LoginForm authorizationInfo={props} />;
+export const App = () => (
+  <Admin
+    auth={{
+      type: 'oauth',
+      oauthTokenURL: ENV.REACT_APP_TOKEN_URL,
+      clientId: ENV.REACT_APP_CLIENT_ID,
+      clientSecret: ENV.REACT_APP_CLIENT_SECRET,
+      scope: ENV.REACT_APP_SCOPE,
+      userNameGetter: (session: AuthSession) => {
+        const payload = session.getTokenPayload();
+        return payload.user && payload.user.username;
+      }
     }}
+    entities={[user, role]}
   />
 );

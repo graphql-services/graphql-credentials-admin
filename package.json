@@ -6,13 +6,11 @@
     "@types/dotenv": "^4.0.3",
     "@types/prop-types": "^15.5.5",
     "antd": "^3.8.1",
-    "dotenv": "^6.0.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
     "react-scripts-ts": "2.16.0",
-    "webpanel-antd": "0.0.21",
-    "webpanel-auth": "0.0.13",
-    "webpanel-data": "0.0.23"
+    "webpanel-admin": "git+https://github.com/webpanel/admin.git",
+    "webpanel-antd": "0.0.22",
+    "webpanel-auth": "0.0.14",
+    "webpanel-data": "0.0.26"
   },
   "scripts": {
     "start:prod": "npm run configure && npm run start",
