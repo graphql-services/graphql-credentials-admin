@@ -2,47 +2,58 @@ import * as React from 'react';
 import { Admin, Entity } from 'webpanel-admin';
 
 import { AuthSession } from 'webpanel-auth';
+import { SortInfoOrder } from 'webpanel-data';
 import { ENV } from './env';
 import { api } from './model/api';
 
-const user: Entity<any> = new Admin.Entity<any>({
-  name: 'User',
-  dataSource: api
-})
-  .field('username')
-  .field({ name: 'password', visibility: { detail: true } })
-  .field({
-    name: 'roles_ids',
-    type: 'relationship',
-    targetEntity: () => role,
-    toMany: true,
-    visibility: { detail: true }
-  })
-  .field({
-    name: 'roles',
-    type: 'relationship',
-    targetEntity: () => role,
-    toMany: true,
-    visibility: { list: true }
-  })
-  .field({ name: 'permissions', type: 'text' });
-
-const role: Entity<any> = new Admin.Entity<any>({
+export const role = new Entity({
   name: 'Role',
+  initialSorting: [{ columnKey: 'name', order: SortInfoOrder.ascend }],
+  list: { table: { condensed: true } },
   dataSource: api
 })
-  .field('name')
-  .field({
-    name: 'users_ids',
-    type: 'relationship',
-    targetEntity: () => user,
-    toMany: true,
-    visibility: { detail: true }
+  .stringField('code', { visible: ['list', 'edit'], sortable: true })
+  .stringField('name', { visible: ['list', 'edit', 'search'], sortable: true })
+  .textField('permissions', { hidden: ['list'] });
+
+export const user = new Entity({
+  name: 'User',
+  dataSource: api,
+  initialSorting: [
+    { columnKey: 'lastname', order: SortInfoOrder.ascend },
+    { columnKey: 'firstname', order: SortInfoOrder.ascend }
+  ],
+  list: { table: { condensed: true } },
+  searchable: true,
+  render: (data: any | null) =>
+    data
+      ? `${data.titlePrefix || ''} ${data.firstname} ${
+          data.lastname
+        } ${data.titleSuffix || ''}`
+      : '–'
+})
+  .stringField('username', {
+    visible: ['list', 'edit', 'search'],
+    rules: [{ required: true }],
+    sortable: true
   })
-  .field({
-    name: 'permissions',
-    type: 'text'
-  });
+  .passwordField('password', {
+    visible: ['edit'],
+    attributes: { type: 'password', autoComplete: 'new-password' }
+  })
+  .stringField('firstname', {
+    visible: ['list', 'edit', 'search'],
+    sortable: true
+  })
+  .stringField('lastname', {
+    visible: ['list', 'edit', 'search'],
+    sortable: true
+  })
+  .relationshipField('roles', {
+    targetEntity: role,
+    type: 'toMany'
+  })
+  .textField('permissions', { hidden: ['list'] });
 
 export const App = () => (
   <Admin
@@ -54,7 +65,7 @@ export const App = () => (
       scope: ENV.REACT_APP_SCOPE,
       userNameGetter: (session: AuthSession) => {
         const payload = session.getTokenPayload();
-        return payload.user && payload.user.username;
+        return payload && payload.user && payload.user.username;
       }
     }}
     entities={[user, role]}

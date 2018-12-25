@@ -5,12 +5,13 @@
   "dependencies": {
     "@types/dotenv": "^4.0.3",
     "@types/prop-types": "^15.5.5",
-    "antd": "^3.8.1",
+    "ant-design-pro": "^2.1.1",
+    "antd": "^3.11.2",
     "react-scripts-ts": "2.16.0",
-    "webpanel-admin": "git+https://github.com/webpanel/admin.git",
-    "webpanel-antd": "0.0.22",
-    "webpanel-auth": "0.0.14",
-    "webpanel-data": "0.0.26"
+    "webpanel-admin": "https://github.com/webpanel/admin.git#feature/password-field",
+    "webpanel-antd": "https://github.com/webpanel/antd.git#develop",
+    "webpanel-auth": "^0.0.20",
+    "webpanel-data": "^0.0.29"
   },
   "scripts": {
     "start:prod": "npm run configure && npm run start",
