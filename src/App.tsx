@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Admin, Entity } from 'webpanel-admin';
+import { Admin, Entity, Layout } from 'webpanel-admin';
 
 import { AuthSession } from 'webpanel-auth';
 import { SortInfoOrder } from 'webpanel-data';
@@ -68,6 +68,15 @@ export const App = () => (
         return payload && payload.user && payload.user.username;
       }
     }}
+    structureItems={[
+      <Layout.StructureItem
+        key="/"
+        name="Dashboard"
+        content={() => <h1>User administration</h1>}
+      />,
+      user.structureItem(),
+      role.structureItem()
+    ]}
     entities={[user, role]}
   />
 );
