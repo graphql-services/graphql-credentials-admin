@@ -8,7 +8,7 @@
     "ant-design-pro": "^2.1.1",
     "antd": "^3.11.2",
     "react-scripts-ts": "2.16.0",
-    "webpanel-admin": "https://github.com/webpanel/admin.git#feature/password-field",
+    "webpanel-admin": "https://github.com/webpanel/admin.git#develop",
     "webpanel-antd": "https://github.com/webpanel/antd.git#develop",
     "webpanel-auth": "^0.0.20",
     "webpanel-data": "^0.0.29"

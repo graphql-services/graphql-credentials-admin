@@ -8669,6 +8669,12 @@ webpack@3.8.1:
     webpack-sources "^1.0.1"
     yargs "^8.0.2"
 
+"webpanel-admin@https://github.com/webpanel/admin.git#develop":
+  version "0.0.13"
+  resolved "https://github.com/webpanel/admin.git#58032ee4d23d222631924c0cb36e2f3597c6d068"
+  dependencies:
+    ts-thunk "0.0.6"
+
 "webpanel-admin@https://github.com/webpanel/admin.git#feature/password-field":
   version "0.0.13"
   resolved "https://github.com/webpanel/admin.git#12363e6d46e3491c203b4a469b1d9c4478691809"
